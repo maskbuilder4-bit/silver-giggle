@@ -3,112 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnSmart - Upload Product</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>EarnSmart - Bioluminescent Jellyfish Matrix Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-indigo: #1E1B4B;
-            --emerald-green: #10B981;
-            --coral-orange: #FF6B6B;
-            --light-bg: #F8FAFC;
-            --text-dark: #0F172A;
-            --text-muted: #64748B;
+            --abyss-deep: #020611;
+            --jelly-core: rgba(11, 20, 38, 0.45);
+            --jelly-border: rgba(45, 212, 191, 0.25);
+            --neon-teal: #2DD4BF;
+            --neon-aqua: #38BDF8;
+            --neon-violet: #A78BFA;
+            --neon-coral: #FB7185;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, var(--primary-indigo) 0%, #312E81 100%);
+            background-color: var(--abyss-deep);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px;
             overflow-x: hidden;
             position: relative;
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(45, 212, 191, 0.18), transparent 50%),
+                radial-gradient(circle at 10% 110%, rgba(167, 139, 250, 0.15), transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.12), transparent 40%);
         }
 
-        .bg-circle {
+        /* Fluid Swimming Jellyfish Bioluminescent Orbs */
+        .jelly-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(90px);
             z-index: 1;
-            animation: float 8s ease-in-out infinite alternate;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            opacity: 0.65;
+            animation: swimJelly 12s ease-in-out infinite alternate;
         }
-        .circle-1 {
+
+        .blob-1 {
+            width: 420px;
+            height: 420px;
+            background: rgba(45, 212, 191, 0.18);
+            top: -5%;
+            left: 10%;
+        }
+
+        .blob-2 {
+            width: 480px;
+            height: 480px;
+            background: rgba(167, 139, 250, 0.16);
+            bottom: -10%;
+            right: 8%;
+            animation-delay: -4s;
+            animation-duration: 15s;
+        }
+
+        .blob-3 {
             width: 320px;
             height: 320px;
-            background: rgba(16, 185, 129, 0.22);
-            top: 15%;
-            right: 15%;
-        }
-        .circle-2 {
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 107, 107, 0.18);
-            bottom: 15%;
-            left: 15%;
+            background: rgba(56, 189, 248, 0.14);
+            top: 40%;
+            right: 20%;
+            animation-delay: -7s;
+            animation-duration: 10s;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(30px) rotate(10deg); }
+        @keyframes swimJelly {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.45; }
+            50% { transform: translateY(-40px) scale(1.18) rotate(15deg); opacity: 0.75; }
+            100% { transform: translateY(35px) scale(0.88) rotate(-12deg); opacity: 0.55; }
         }
 
+        /* Jellyfish Glass Floating Container */
         .upload-container {
             position: relative;
             z-index: 10;
-            background: #FFFFFF;
+            background: var(--jelly-core);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid var(--jelly-border);
             width: 100%;
-            max-width: 460px;
-            border-radius: 20px;
-            padding: 35px 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.6s ease-out;
+            max-width: 480px;
+            border-radius: 36px;
+            padding: 44px 34px;
+            box-shadow: 
+                0 35px 75px rgba(2, 6, 17, 0.85),
+                inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                inset 0 0 35px rgba(45, 212, 191, 0.08);
+            animation: floatContainer 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: box-shadow 0.5s ease, border-color 0.5s ease;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .upload-container:hover {
+            border-color: rgba(45, 212, 191, 0.45);
+            box-shadow: 
+                0 40px 90px rgba(2, 6, 17, 0.95),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 0 45px rgba(45, 212, 191, 0.14);
+        }
+
+        @keyframes floatContainer {
+            from { opacity: 0; transform: translateY(35px) scale(0.94); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .brand-logo {
             text-align: center;
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--primary-indigo);
-            margin-bottom: 5px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin-bottom: 4px;
         }
+
         .brand-logo span {
-            color: var(--emerald-green);
+            background: linear-gradient(135deg, var(--neon-teal), var(--neon-aqua), var(--neon-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(45, 212, 191, 0.6));
         }
 
         .tagline {
             text-align: center;
             font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 28px;
+            letter-spacing: 0.4px;
         }
 
         .input-group {
             margin-bottom: 18px;
-            position: relative;
         }
 
         .input-group label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1.2px;
+            transition: color 0.3s ease;
         }
 
         .input-wrapper {
@@ -117,29 +166,30 @@
 
         .input-wrapper i {
             position: absolute;
-            left: 14px;
+            left: 16px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
-            transition: color 0.3s ease;
+            font-size: 15px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .input-wrapper textarea ~ i {
-            top: 20px;
+            top: 18px;
             transform: none;
         }
 
         .input-wrapper input,
         .input-wrapper textarea {
             width: 100%;
-            padding: 12px 14px 12px 42px;
-            border: 2px solid #E2E8F0;
-            border-radius: 10px;
+            padding: 14px 16px 14px 46px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             font-size: 14px;
-            color: var(--text-dark);
+            color: var(--text-main);
             outline: none;
-            transition: all 0.3s ease;
-            background: var(--light-bg);
+            background: rgba(2, 6, 17, 0.55);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .input-wrapper textarea {
@@ -149,29 +199,58 @@
 
         .input-wrapper input:focus,
         .input-wrapper textarea:focus {
-            border-color: var(--emerald-green);
-            background: #FFFFFF;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+            border-color: var(--neon-teal);
+            background: rgba(2, 6, 17, 0.85);
+            box-shadow: 0 0 30px rgba(45, 212, 191, 0.25), inset 0 0 12px rgba(45, 212, 191, 0.1);
         }
 
         .input-wrapper input:focus + i,
         .input-wrapper textarea:focus + i {
-            color: var(--emerald-green);
+            color: var(--neon-teal);
+            transform: translateY(-50%) scale(1.1);
+            text-shadow: 0 0 12px var(--neon-teal);
         }
 
+        .input-wrapper textarea:focus ~ i {
+            transform: none;
+            color: var(--neon-teal);
+            text-shadow: 0 0 12px var(--neon-teal);
+        }
+
+        .input-group:focus-within label {
+            color: var(--neon-teal);
+        }
+
+        /* Bioluminescent Jellyfish File Box with Ripple Glow */
         .file-upload-box {
-            border: 2px dashed #CBD5E1;
-            padding: 15px;
-            border-radius: 10px;
+            border: 2px dashed rgba(56, 189, 248, 0.28);
+            padding: 22px;
+            border-radius: 16px;
             text-align: center;
-            background: var(--light-bg);
+            background: rgba(2, 6, 17, 0.5);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-upload-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.15), transparent);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .file-upload-box:hover::before {
+            left: 100%;
         }
 
         .file-upload-box:hover {
-            border-color: var(--emerald-green);
-            background: #F0FDF4;
+            border-color: var(--neon-teal);
+            background: rgba(45, 212, 191, 0.07);
+            box-shadow: 0 0 35px rgba(45, 212, 191, 0.25);
+            transform: translateY(-2px);
         }
 
         .file-upload-box input[type="file"] {
@@ -179,79 +258,106 @@
         }
 
         .file-upload-label {
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-muted);
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .file-upload-label i {
-            color: var(--emerald-green);
-            font-size: 16px;
+            color: var(--neon-violet);
+            font-size: 18px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
         }
 
+        .file-upload-box:hover .file-upload-label i {
+            transform: translateY(-5px) scale(1.15) rotate(8deg);
+            color: var(--neon-teal);
+            text-shadow: 0 0 15px var(--neon-teal);
+        }
+
+        /* Shimmering Multi-Spectrum Jellyfish Button */
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--emerald-green) 0%, #059669 100%);
-            color: #FFFFFF;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--neon-teal) 0%, var(--neon-aqua) 50%, var(--neon-violet) 100%);
+            color: #020611;
             border: none;
-            border-radius: 10px;
+            border-radius: 16px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 12px 35px rgba(45, 212, 191, 0.4);
+            margin-top: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 65%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 18px 45px rgba(167, 139, 250, 0.6);
+            filter: brightness(1.12);
+        }
+
+        .btn-submit:hover::after {
+            opacity: 1;
         }
 
         .form-footer {
             text-align: center;
-            margin-top: 18px;
-            font-size: 13px;
-            color: var(--text-muted);
+            margin-top: 24px;
+            font-size: 13.5px;
         }
 
         .form-footer a {
-            color: var(--primary-indigo);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.2s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .form-footer a:hover {
-            color: var(--coral-orange);
+            color: var(--neon-teal);
+            text-shadow: 0 0 10px rgba(45, 212, 191, 0.6);
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-circle circle-1"></div>
-    <div class="bg-circle circle-2"></div>
+    <!-- Bioluminescent Jellyfish Floating Orbs -->
+    <div class="jelly-blob blob-1"></div>
+    <div class="jelly-blob blob-2"></div>
+    <div class="jelly-blob blob-3"></div>
 
     <div class="upload-container">
-
-        <div class="brand-logo"><i class="fa-solid fa-wallet"></i> Earn<span>Smart</span></div>
-        <p class="tagline">Apni Decorated Book Free Me Listing Karein!</p>
+        <div class="brand-logo">Earn<span>Smart</span></div>
+        <p class="tagline">Deep-Sea Bioluminescent Node Matrix</p>
 
         <form onsubmit="handleProductUpload(event)">
-
             <div class="input-group">
                 <label for="prodTitle">Product Title</label>
                 <div class="input-wrapper">
-                    <input type="text" id="prodTitle" placeholder="Jaise: Aesthetic Galaxy Notebook" required>
+                    <input type="text" id="prodTitle" placeholder="e.g., Phantom Crystal Notebook" required>
                     <i class="fa-solid fa-book"></i>
                 </div>
             </div>
@@ -259,95 +365,46 @@
             <div class="input-group">
                 <label for="prodDesc">Description</label>
                 <div class="input-wrapper">
-                    <textarea id="prodDesc" placeholder="Book ki details aur decoration ke baare me batayein..." required></textarea>
+                    <textarea id="prodDesc" placeholder="Highlight your glowing design features..." required></textarea>
                     <i class="fa-solid fa-align-left"></i>
                 </div>
             </div>
 
             <div class="input-group">
-                <label for="prodWhatsapp">WhatsApp Number (Direct Contact)</label>
+                <label for="prodWhatsapp">WhatsApp Number</label>
                 <div class="input-wrapper">
-                    <input type="tel" id="prodWhatsapp" placeholder="919876543210 (Country code ke sath)" pattern="[0-9]{10,12}" required>
+                    <input type="tel" id="prodWhatsapp" placeholder="919876543210 (With country code)" pattern="[0-9]{10,12}" required>
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
             </div>
 
             <div class="input-group">
-                <label>Product Image</label>
+                <label>Product Image Asset</label>
                 <div class="file-upload-box" onclick="document.getElementById('prodImage').click()">
                     <input type="file" id="prodImage" accept="image/*" required onchange="previewFileName(this)">
                     <div class="file-upload-label" id="fileLabelText">
-                        <i class="fa-solid fa-cloud-arrow-up"></i><span>Apni Book ki Image Upload Karein</span>
+                        <i class="fa-solid fa-cloud-arrow-up"></i><span>Pulse to Sync Image File</span>
                     </div>
                 </div>
             </div>
 
             <button type="submit" class="btn-submit">
-                Free Me List Karein <i class="fa-solid fa-upload"></i>
+                Initialize Matrix <i class="fa-solid fa-upload"></i>
             </button>
-
         </form>
 
         <div class="form-footer">
-            <a href="home.html"><i class="fa-solid fa-arrow-left"></i> Marketplace Par Wapas Jayein</a>
+            <a href="home.html"><i class="fa-solid fa-arrow-left"></i> Return to Marketplace</a>
         </div>
-
     </div>
-    <script>
-    async function handleProductUpload(event) {
-    event.preventDefault();
 
-    const title = document.getElementById('prodTitle').value.trim();
-    const description = document.getElementById('prodDesc').value.trim();
-    const whatsapp = document.getElementById('prodWhatsapp').value.trim();
-    const imageInput = document.getElementById('prodImage');
-
-    if (imageInput.files && imageInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            const newProduct = {
-                id: Date.now(),
-                title,
-                description,
-                whatsapp,
-                image: e.target.result,
-                synced: false // Flag to track if it reached Termux
-            };
-
-            // 1. Save locally so buyer can see it instantly via browser storage
-            let products = JSON.parse(localStorage.getItem('products') || '[]');
-            products.push(newProduct);
-            localStorage.setItem('products', JSON.stringify(products));
-
-            // 2. Try sending to Termux backend if online
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/upload-product`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newProduct)
-                });
-                if(response.ok) {
-                    newProduct.synced = true;
-                    // Update local storage sync state
-                    localStorage.setItem('products', JSON.stringify(products));
-                }
-            } catch (err) {
-                console.log("You are offline. Product stored locally and will sync when online.");
-            }
-
-            alert("Product successfully saved and listed!");
-            window.location.href = "home.html";
-        };
-        reader.readAsDataURL(imageInput.files[0]);
-    }
-}
-
-   </script>
+    <!-- Core Integration Scripts -->
+    <script src="auth.js"></script>
     <script>
         function previewFileName(input) {
             const labelText = document.getElementById('fileLabelText');
             if (input.files && input.files[0]) {
-                labelText.innerHTML = `<i class="fa-solid fa-check"></i> <span>${input.files[0].name}</span>`;
+                labelText.innerHTML = `<i class="fa-solid fa-check" style="color: var(--neon-teal); text-shadow: 0 0 12px var(--neon-teal);"></i> <span style="color: var(--text-main); font-weight: 600;">${input.files[0].name}</span>`;
             }
         }
 
@@ -361,26 +418,40 @@
 
             if (imageInput.files && imageInput.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = async function(e) {
                     const newProduct = {
                         id: Date.now(),
                         title,
                         description,
                         whatsapp,
-                        image: e.target.result // Base64 representation of the image for local/static storage
+                        image: e.target.result,
+                        synced: false
                     };
 
                     let products = JSON.parse(localStorage.getItem('products') || '[]');
                     products.push(newProduct);
                     localStorage.setItem('products', JSON.stringify(products));
 
-                    alert("Product successfully upload ho gaya hai!");
+                    try {
+                        const response = await fetch(`${BACKEND_URL}/api/upload-product`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(newProduct)
+                        });
+                        if(response.ok) {
+                            newProduct.synced = true;
+                            localStorage.setItem('products', JSON.stringify(products));
+                        }
+                    } catch (err) {
+                        console.log("Offline mode: Product stored locally.");
+                    }
+
+                    alert("Product successfully uploaded and listed!");
                     window.location.href = "home.html";
                 };
                 reader.readAsDataURL(imageInput.files[0]);
             }
         }
     </script>
-
 </body>
 </html>
