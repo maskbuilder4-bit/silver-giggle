@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarnSmart - Student Profile & Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --abyss-deep: #020611;
+            --jelly-core: rgba(11, 20, 38, 0.6);
+            --jelly-border: rgba(45, 212, 191, 0.22);
+            --neon-teal: #2DD4BF;
+            --neon-aqua: #38BDF8;
+            --neon-violet: #A78BFA;
+            --neon-coral: #FB7185;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--abyss-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 40%);
+            overflow-x: hidden;
+        }
+
+        .ambient-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            opacity: 0.5;
+        }
+        .blob-1 { width: 450px; height: 450px; background: rgba(45, 212, 191, 0.12); top: -10%; left: 5%; }
+        .blob-2 { width: 500px; height: 500px; background: rgba(167, 139, 250, 0.12); bottom: -10%; right: 5%; }
+
+        nav {
+            background: rgba(11, 20, 38, 0.75);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--jelly-border);
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h2 { font-size: 24px; font-weight: 800; }
+        nav h2 span {
+            background: linear-gradient(135deg, var(--neon-teal), var(--neon-aqua));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 18px; }
+        .nav-link-btn {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--neon-teal);
+            padding: 8px 16px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-link-btn:hover {
+            background: rgba(45, 212, 191, 0.2);
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+        }
+
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 24px; position: relative; z-index: 10; }
+
+        /* PROFILE CARD & STATS */
+        .profile-header-card {
+            background: var(--jelly-core);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--jelly-border);
+            border-radius: 28px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .profile-user-info { display: flex; align-items: center; gap: 24px; }
+        .avatar-circle {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--neon-teal), var(--neon-violet));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: #020611;
+            box-shadow: 0 0 25px rgba(45, 212, 191, 0.4);
+        }
+
+        .user-details h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: var(--text-main); }
+        .user-details p { color: var(--text-muted); font-size: 14px; margin-bottom: 8px; }
+        
+        .badge-school {
+            background: rgba(167, 139, 250, 0.1);
+            color: var(--neon-violet);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            display: inline-block;
+        }
+
+        .stats-boxes { display: flex; gap: 16px; flex-wrap: wrap; }
+        .stat-box {
+            background: rgba(2, 6, 17, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 22px;
+            border-radius: 18px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .stat-box span { display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+        .stat-box h3 { font-size: 20px; font-weight: 800; color: var(--neon-teal); }
+
+        .section-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+        /* USER'S UPLOADED PRODUCTS GRID */
+        .my-products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        @media (max-width: 1024px) {
+            .my-products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .my-products-grid { grid-template-columns: 1fr; }
+            .profile-header-card { flex-direction: column; align-items: flex-start; }
+        }
+
+        .product-mini-card {
+            background: var(--jelly-core);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--jelly-border);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-mini-card img {
+            width: 100%; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 12px;
+        }
+        .product-mini-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .product-mini-card p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; }
+
+        .btn-delete {
+            background: rgba(251, 113, 133, 0.1);
+            color: var(--neon-coral);
+            border: 1px solid rgba(251, 113, 133, 0.25);
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-delete:hover {
+            background: rgba(251, 113, 133, 0.25);
+        }
+
+        .empty-profile {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            background: var(--jelly-core);
+            border-radius: 20px;
+            border: 1px dashed var(--jelly-border);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body onload="loadProfileData()">
+
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <nav>
+        <h2>Earn<span>Smart</span></h2>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link-btn"><i class="fa-solid fa-store"></i> Marketplace</a>
+            <a href="#" onclick="handleLogout()" class="nav-link-btn" style="background: rgba(251, 113, 133, 0.1); color: var(--neon-coral); border-color: rgba(251, 113, 133, 0.25);">
+                <i class="fa-solid fa-power-off"></i> Logout
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Profile Account Info & Revenue Analytics Header -->
+        <div class="profile-header-card">
+            <div class="profile-user-info">
+                <div class="avatar-circle" id="avatarInitial">U</div>
+                <div class="user-details">
+                    <h1 id="userNameDisplay">Student Name</h1>
+                    <p id="userEmailDisplay">student@campus.edu</p>
+                    <div class="badge-school" id="userSchoolTag">🏫 Campus Creator</div>
+                </div>
+            </div>
+            <div class="stats-boxes">
+                <div class="stat-box">
+                    <span>Total Uploads</span>
+                    <h3 id="totalUploadsCount">0</h3>
+                </div>
+                <div class="stat-box">
+                    <span>Est. Revenue</span>
+                    <h3 id="totalRevenue">₹0</h3>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">My Campus Listings & Projects</h2>
+        <div class="my-products-grid" id="myProductsContainer">
+            <!-- User products loaded dynamically -->
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        function loadProfileData() {
+            // Load user data from localStorage
+            const currentUserData = localStorage.getItem('currentUser');
+            if (!currentUserData) {
+                alert("Please log in first to access your profile!");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const currentUser = JSON.parse(currentUserData);
+            document.getElementById('userNameDisplay').innerText = currentUser.fullname || "Student Creator";
+            document.getElementById('userEmailDisplay').innerText = currentUser.email || "No email provided";
+            document.getElementById('avatarInitial').innerText = (currentUser.fullname || "S").charAt(0).toUpperCase();
+            
+            if(currentUser.schoolNickname) {
+                document.getElementById('userSchoolTag').innerText = `🏫 Nickname: ${currentUser.schoolNickname}`;
+            }
+
+            // Load and filter user products (assuming all stored products represent user items, or you can track via creator info)
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const container = document.getElementById('myProductsContainer');
+            container.innerHTML = '';
+
+            document.getElementById('totalUploadsCount').innerText = products.length;
+            // Estimated revenue calculation (e.g., ₹40 per item listing/sale metric)
+            document.getElementById('totalRevenue').innerText = `₹${products.length * 40}`;
+
+            if(products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-profile">
+                        <i class="fa-solid fa-folder-open" style="font-size: 36px; margin-bottom: 10px; color: var(--neon-teal);"></i>
+                        <p>You haven't uploaded any decorated notebooks or notes yet!</p>
+                    </div>`;
+                return;
+            }
+
+            products.forEach((prod, index) => {
+                container.innerHTML += `
+                    <div class="product-mini-card">
+                        <div>
+                            ${prod.image ? `<img src="${prod.image}" alt="Product">` : ''}
+                            <h4>${prod.title}</h4>
+                            <p>${prod.description}</p>
+                        </div>
+                        <button class="btn-delete" onclick="deleteProduct(${prod.id})"><i class="fa-solid fa-trash"></i> Remove Item</button>
+                    </div>
+                `;
+            });
+        }
+
+        function deleteProduct(productId) {
+            if(confirm("Are you sure you want to remove this project listing?")) {
+                let products = JSON.parse(localStorage.getItem('products') || '[]');
+                products = products.filter(p => p.id !== productId);
+                localStorage.setItem('products', JSON.stringify(products));
+                loadProfileData();
+            }
+        }
+    </script>
+</body>
+</html>
