@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarnSmart - Upload Product</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-indigo: #1E1B4B;
+            --emerald-green: #10B981;
+            --coral-orange: #FF6B6B;
+            --light-bg: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-indigo) 0%, #312E81 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+        .circle-1 {
+            width: 320px;
+            height: 320px;
+            background: rgba(16, 185, 129, 0.22);
+            top: 15%;
+            right: 15%;
+        }
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 107, 107, 0.18);
+            bottom: 15%;
+            left: 15%;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(30px) rotate(10deg); }
+        }
+
+        .upload-container {
+            position: relative;
+            z-index: 10;
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 460px;
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-logo {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            margin-bottom: 5px;
+        }
+        .brand-logo span {
+            color: var(--emerald-green);
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .input-wrapper textarea ~ i {
+            top: 20px;
+            transform: none;
+        }
+
+        .input-wrapper input,
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--light-bg);
+        }
+
+        .input-wrapper textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper textarea:focus {
+            border-color: var(--emerald-green);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        .input-wrapper input:focus + i,
+        .input-wrapper textarea:focus + i {
+            color: var(--emerald-green);
+        }
+
+        .file-upload-box {
+            border: 2px dashed #CBD5E1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            background: var(--light-bg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-box:hover {
+            border-color: var(--emerald-green);
+            background: #F0FDF4;
+        }
+
+        .file-upload-box input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .file-upload-label i {
+            color: var(--emerald-green);
+            font-size: 16px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--emerald-green) 0%, #059669 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .form-footer a {
+            color: var(--primary-indigo);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .form-footer a:hover {
+            color: var(--coral-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+
+    <div class="upload-container">
+
+        <div class="brand-logo"><i class="fa-solid fa-wallet"></i> Earn<span>Smart</span></div>
+        <p class="tagline">Apni Decorated Book Free Me Listing Karein!</p>
+
+        <form onsubmit="handleProductUpload(event)">
+
+            <div class="input-group">
+                <label for="prodTitle">Product Title</label>
+                <div class="input-wrapper">
+                    <input type="text" id="prodTitle" placeholder="Jaise: Aesthetic Galaxy Notebook" required>
+                    <i class="fa-solid fa-book"></i>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="prodDesc">Description</label>
+                <div class="input-wrapper">
+                    <textarea id="prodDesc" placeholder="Book ki details aur decoration ke baare me batayein..." required></textarea>
+                    <i class="fa-solid fa-align-left"></i>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="prodWhatsapp">WhatsApp Number (Direct Contact)</label>
+                <div class="input-wrapper">
+                    <input type="tel" id="prodWhatsapp" placeholder="919876543210 (Country code ke sath)" pattern="[0-9]{10,12}" required>
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Product Image</label>
+                <div class="file-upload-box" onclick="document.getElementById('prodImage').click()">
+                    <input type="file" id="prodImage" accept="image/*" required onchange="previewFileName(this)">
+                    <div class="file-upload-label" id="fileLabelText">
+                        <i class="fa-solid fa-cloud-arrow-up"></i><span>Apni Book ki Image Upload Karein</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Free Me List Karein <i class="fa-solid fa-upload"></i>
+            </button>
+
+        </form>
+
+        <div class="form-footer">
+            <a href="home.html"><i class="fa-solid fa-arrow-left"></i> Marketplace Par Wapas Jayein</a>
+        </div>
+
+    </div>
+    <script>
+    async function handleProductUpload(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('prodTitle').value.trim();
+    const description = document.getElementById('prodDesc').value.trim();
+    const whatsapp = document.getElementById('prodWhatsapp').value.trim();
+    const imageInput = document.getElementById('prodImage');
+
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            const newProduct = {
+                id: Date.now(),
+                title,
+                description,
+                whatsapp,
+                image: e.target.result,
+                synced: false // Flag to track if it reached Termux
+            };
+
+            // 1. Save locally so buyer can see it instantly via browser storage
+            let products = JSON.parse(localStorage.getItem('products') || '[]');
+            products.push(newProduct);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // 2. Try sending to Termux backend if online
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/upload-product`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newProduct)
+                });
+                if(response.ok) {
+                    newProduct.synced = true;
+                    // Update local storage sync state
+                    localStorage.setItem('products', JSON.stringify(products));
+                }
+            } catch (err) {
+                console.log("You are offline. Product stored locally and will sync when online.");
+            }
+
+            alert("Product successfully saved and listed!");
+            window.location.href = "home.html";
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+}
+
+   </script>
+    <script>
+        function previewFileName(input) {
+            const labelText = document.getElementById('fileLabelText');
+            if (input.files && input.files[0]) {
+                labelText.innerHTML = `<i class="fa-solid fa-check"></i> <span>${input.files[0].name}</span>`;
+            }
+        }
+
+        async function handleProductUpload(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('prodTitle').value.trim();
+            const description = document.getElementById('prodDesc').value.trim();
+            const whatsapp = document.getElementById('prodWhatsapp').value.trim();
+            const imageInput = document.getElementById('prodImage');
+
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newProduct = {
+                        id: Date.now(),
+                        title,
+                        description,
+                        whatsapp,
+                        image: e.target.result // Base64 representation of the image for local/static storage
+                    };
+
+                    let products = JSON.parse(localStorage.getItem('products') || '[]');
+                    products.push(newProduct);
+                    localStorage.setItem('products', JSON.stringify(products));
+
+                    alert("Product successfully upload ho gaya hai!");
+                    window.location.href = "home.html";
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            }
+        }
+    </script>
+
+</body>
+</html>

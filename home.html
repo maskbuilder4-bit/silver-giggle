@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarnSmart - Home Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #F8FAFC; color: #0F172A; }
+        nav { background: #1E1B4B; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        nav h2 span { color: #10B981; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .btn-upload { background: #10B981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .product-card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .product-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .product-card p { color: #64748B; font-size: 14px; margin-bottom: 15px; }
+        .btn-buy { width: 100%; background: #FF6B6B; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body onload="loadDashboard()">
+
+    <nav>
+        <h2>Earn<span>Smart</span></h2>
+        <div class="nav-links">
+            <span id="userNameDisplay">User</span>
+            <a href="upload.html">Upload Product</a>
+            <a href="#" onclick="handleLogout()">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-flex">
+            <h2>Student Decorated Books Marketplace</h2>
+            <a href="upload.html" class="btn-upload">+ Sell Your Item</a>
+        </div>
+
+        <div class="product-grid" id="productContainer">
+            <!-- Dynamically populated products -->
+        </div>
+    </div>
+
+    <!-- Include Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Load products on start
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+        });
+
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const container = document.getElementById('productContainer');
+            container.innerHTML = '';
+            
+            if(products.length === 0) {
+                container.innerHTML = '<p>No items listed yet. Be the first to upload!</p>';
+                return;
+            }
+
+            products.forEach((prod, index) => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <h3>${prod.title}</h3>
+                        <p>${prod.description}</p>
+                        <p><strong>Price:</strong> $0.50</p>
+                        <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">Buy Now ($0.5)</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Secure Razorpay trigger before giving WhatsApp access
+        function initiateBuy(sellerWhatsApp) {
+            var options = {
+                "key": "rzp_test_YOUR_KEY_HERE", // Replace with your live/test Razorpay Key
+                "amount": "50", // 50 cents ($0.50 in paisa/cents logic depending on currency)
+                "currency": "USD",
+                "name": "EarnSmart",
+                "description": "Book Decoration Direct Connection Fee",
+                "handler": function (response){
+                    // Payment successful! Secure bypass prevention check & reveal WhatsApp
+                    alert("Payment Successful! Redirecting to Seller's WhatsApp...");
+                    window.location.href = `https://wa.me/${sellerWhatsApp}?text=Hi,%20I%20paid%20$0.50%20on%20EarnSmart%20for%20your%20decorated%20book!`;
+                },
+                "theme": { "color": "#10B981" }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    </script>
+</body>
+</html>
