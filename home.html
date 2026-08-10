@@ -3,23 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnSmart - Home Marketplace</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>EarnSmart - Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #F8FAFC; color: #0F172A; }
-        nav { background: #1E1B4B; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        nav h2 span { color: #10B981; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .btn-upload { background: #10B981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .product-card h3 { font-size: 18px; margin-bottom: 8px; }
-        .product-card p { color: #64748B; font-size: 14px; margin-bottom: 15px; }
-        .btn-buy { width: 100%; background: #FF6B6B; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        :root {
+            --bg-deep: #090D16;
+            --surface: #131D31;
+            --surface-hover: #1A2844;
+            --accent-glow: #6366F1;
+            --neon-pink: #EC4899;
+            --emerald: #10B981;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 40%);
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: rgba(19, 29, 49, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h2 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        nav h2 span { color: var(--accent-glow); text-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+
+        .nav-links { display: flex; align-items: center; gap: 24px; }
+        .nav-links span {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818CF8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--text-main); }
+
+        .container { max-width: 1300px; margin: 40px auto; padding: 0 24px; }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-flex h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-upload {
+            background: linear-gradient(135deg, var(--accent-glow) 0%, #4F46E5 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        /* EXACTLY 3 PRODUCTS PER ROW ON DESKTOP, FLUID RESPONSIVE */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .product-grid { grid-template-columns: 1fr; }
+            nav { padding: 15px 20px; }
+            .header-flex h2 { font-size: 22px; }
+        }
+
+        .product-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-glow), var(--neon-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-card:hover::before { opacity: 1; }
+
+        .prod-img-box {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #1e293b;
+            margin-bottom: 16px;
+        }
+        .prod-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .prod-img-box img { transform: scale(1.05); }
+
+        .product-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            font-size: 13.5px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        .price-tag {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--emerald);
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.45);
+        }
+        
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px dashed var(--border);
+        }
     </style>
 </head>
 <body onload="loadDashboard()">
@@ -27,16 +234,16 @@
     <nav>
         <h2>Earn<span>Smart</span></h2>
         <div class="nav-links">
-            <span id="userNameDisplay">User</span>
-            <a href="upload.html">Upload Product</a>
-            <a href="#" onclick="handleLogout()">Logout</a>
+            <span id="userNameDisplay"><i class="fa-solid fa-user-shield"></i> User</span>
+            <a href="upload.html"><i class="fa-solid fa-plus-circle"></i> Upload</a>
+            <a href="#" onclick="handleLogout()" style="color: #EF4444;"><i class="fa-solid fa-power-off"></i></a>
         </div>
     </nav>
 
     <div class="container">
         <div class="header-flex">
-            <h2>Student Decorated Books Marketplace</h2>
-            <a href="upload.html" class="btn-upload">+ Sell Your Item</a>
+            <h2>Student Marketplace</h2>
+            <a href="upload.html" class="btn-upload"><i class="fa-solid fa-bolt"></i> Sell Your Item</a>
         </div>
 
         <div class="product-grid" id="productContainer">
@@ -48,7 +255,6 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="auth.js"></script>
     <script>
-        // Load products on start
         window.addEventListener('DOMContentLoaded', () => {
             loadProducts();
         });
@@ -59,36 +265,43 @@
             container.innerHTML = '';
             
             if(products.length === 0) {
-                container.innerHTML = '<p>No items listed yet. Be the first to upload!</p>';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-box-open" style="font-size: 40px; margin-bottom: 12px; color: var(--accent-glow);"></i>
+                        <p>No items listed yet. Be the first creator to upload!</p>
+                    </div>`;
                 return;
             }
 
-            products.forEach((prod, index) => {
+            products.forEach((prod) => {
                 container.innerHTML += `
                     <div class="product-card">
-                        <h3>${prod.title}</h3>
-                        <p>${prod.description}</p>
-                        <p><strong>Price:</strong> $0.50</p>
-                        <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">Buy Now ($0.5)</button>
+                        <div>
+                            ${prod.image ? `<div class="prod-img-box"><img src="${prod.image}" alt="Product Image"></div>` : ''}
+                            <h3>${prod.title}</h3>
+                            <p>${prod.description}</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price-tag">$0.50</span>
+                            <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">Buy Now</button>
+                        </div>
                     </div>
                 `;
             });
         }
 
-        // Secure Razorpay trigger before giving WhatsApp access
         function initiateBuy(sellerWhatsApp) {
             var options = {
-                "key": "rzp_test_YOUR_KEY_HERE", // Replace with your live/test Razorpay Key
-                "amount": "50", // 50 cents ($0.50 in paisa/cents logic depending on currency)
+                "key": "rzp_test_YOUR_KEY_HERE",
+                "amount": "50",
                 "currency": "USD",
                 "name": "EarnSmart",
                 "description": "Book Decoration Direct Connection Fee",
                 "handler": function (response){
-                    // Payment successful! Secure bypass prevention check & reveal WhatsApp
                     alert("Payment Successful! Redirecting to Seller's WhatsApp...");
                     window.location.href = `https://wa.me/${sellerWhatsApp}?text=Hi,%20I%20paid%20$0.50%20on%20EarnSmart%20for%20your%20decorated%20book!`;
                 },
-                "theme": { "color": "#10B981" }
+                "theme": { "color": "#6366F1" }
             };
             var rzp1 = new Razorpay(options);
             rzp1.open();
