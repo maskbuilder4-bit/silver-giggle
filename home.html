@@ -3,335 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnSmart - Campus Marketplace</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Silver Giggle - Student Profile & Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --abyss-deep: #020611;
-            --jelly-core: rgba(11, 20, 38, 0.6);
-            --jelly-border: rgba(45, 212, 191, 0.22);
-            --neon-teal: #2DD4BF;
-            --neon-aqua: #38BDF8;
-            --neon-violet: #A78BFA;
-            --neon-coral: #FB7185;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
+            --void: #050608;
+            --void-2: #0A0D14;
+            --panel: rgba(14, 18, 28, 0.62);
+            --panel-border: rgba(200, 212, 220, 0.14);
+            --chrome-1: #E7EDF2;
+            --chrome-2: #9AA8B5;
+            --chrome-3: #4C5866;
+            --cyan: #45E8D4;
+            --violet: #8B7FFF;
+            --flash: #F5FAFF;
+            --text-main: #F1F4F7;
+            --text-muted: #8A94A3;
+            --coral: #FB7185;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: var(--abyss-deep);
+            background: var(--void);
             color: var(--text-main);
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 40%);
             overflow-x: hidden;
-        }
-
-        /* Ambient Jellyfish Floating Orbs */
-        .ambient-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: 0;
-            pointer-events: none;
-            mix-blend-mode: screen;
-            opacity: 0.5;
-            animation: floatBlob 14s ease-in-out infinite alternate;
-        }
-        .blob-1 { width: 450px; height: 450px; background: rgba(45, 212, 191, 0.12); top: -10%; left: 5%; }
-        .blob-2 { width: 500px; height: 500px; background: rgba(167, 139, 250, 0.12); bottom: -10%; right: 5%; animation-delay: -5s; }
-
-        @keyframes floatBlob {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.1); }
-            100% { transform: translateY(20px) scale(0.9); }
-        }
-
-        nav {
-            background: rgba(11, 20, 38, 0.75);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--jelly-border);
-            padding: 16px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav h2 { font-size: 24px; font-weight: 800; }
-        nav h2 span {
-            background: linear-gradient(135deg, var(--neon-teal), var(--neon-aqua));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links { display: flex; align-items: center; gap: 18px; }
-        .nav-link-btn {
-            background: rgba(45, 212, 191, 0.1);
-            color: var(--neon-teal);
-            padding: 8px 16px;
-            border-radius: 14px;
-            font-size: 13.5px;
-            font-weight: 700;
-            text-decoration: none;
-            border: 1px solid rgba(45, 212, 191, 0.25);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-link-btn:hover {
-            background: rgba(45, 212, 191, 0.2);
-            box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .container { max-width: 1300px; margin: 40px auto; padding: 0 24px; position: relative; z-index: 10; }
-
-        /* HERO BANNER - School & College Relatable */
-        .hero-banner {
-            background: linear-gradient(135deg, rgba(11, 20, 38, 0.8), rgba(26, 38, 64, 0.6));
-            border: 1px solid var(--jelly-border);
-            border-radius: 28px;
-            padding: 40px;
-            margin-bottom: 40px;
             position: relative;
-            overflow: hidden;
+        }
+
+        /* ===== STORM WALLPAPER BACKGROUND ===== */
+        #stormSky {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 70% 45% at 20% 0%, rgba(139,127,255,0.16) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 85% 10%, rgba(69,232,212,0.12) 0%, transparent 60%),
+                linear-gradient(180deg, #060810 0%, #090C15 45%, #050608 100%);
+        }
+        .cloud-layer {
+            position: fixed;
+            inset: -10%;
+            z-index: 0;
+            background-image:
+                radial-gradient(ellipse 45% 18% at 12% 18%, rgba(154,168,181,0.10), transparent 70%),
+                radial-gradient(ellipse 55% 22% at 78% 8%, rgba(154,168,181,0.08), transparent 70%),
+                radial-gradient(ellipse 40% 16% at 55% 30%, rgba(154,168,181,0.07), transparent 70%);
+            animation: driftClouds 40s ease-in-out infinite alternate;
+            filter: blur(2px);
+        }
+        @keyframes driftClouds {
+            0% { transform: translateX(-2%) translateY(0); }
+            100% { transform: translateX(2%) translateY(1.5%); }
+        }
+        .skyline {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 26vh;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, transparent 0%, rgba(5,6,8,0.9) 90%),
+                repeating-linear-gradient(90deg, #0B0E16 0 38px, #0D111A 38px 40px);
+            clip-path: polygon(0% 100%,0% 55%,4% 55%,4% 40%,9% 40%,9% 62%,14% 62%,14% 30%,20% 30%,20% 50%,26% 50%,26% 20%,31% 20%,31% 58%,37% 58%,37% 44%,43% 44%,43% 26%,49% 26%,49% 60%,55% 60%,55% 36%,61% 36%,61% 18%,67% 18%,67% 52%,73% 52%,73% 32%,79% 32%,79% 46%,85% 46%,85% 24%,91% 24%,91% 56%,96% 56%,96% 42%,100% 42%,100% 100%);
+            opacity: 0.85;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: sticky; top: 0; z-index: 50;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 5%;
+            background: rgba(5,6,8,0.55);
+            backdrop-filter: blur(22px) saturate(140%);
+            border-bottom: 1px solid var(--panel-border);
+        }
+        .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo .bolt { color: var(--cyan); text-shadow: 0 0 18px rgba(69,232,212,0.7); }
+        .logo span {
+            background: linear-gradient(135deg, var(--chrome-1), var(--chrome-3) 60%, var(--chrome-1));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 14px; font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.25s ease;
+        }
+        .nav-links a:hover {
+            color: var(--text-main);
+            background: rgba(255,255,255,0.04);
+            border-color: var(--panel-border);
+        }
+        .nav-links a.active {
+            color: var(--void);
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            box-shadow: 0 4px 18px rgba(69,232,212,0.25);
+        }
+        .nav-links a.logout-btn {
+            color: var(--coral);
+            border-color: rgba(251, 113, 133, 0.25);
+            background: rgba(251, 113, 133, 0.08);
+        }
+        .nav-links a.logout-btn:hover {
+            background: rgba(251, 113, 133, 0.2);
+            color: var(--text-main);
+        }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 5%; position: relative; z-index: 10; }
+
+        /* ===== PROFILE HEADER ===== */
+        .profile-header-card {
+            background: var(--panel);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 35px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-        .hero-banner h1 { font-size: 32px; font-weight: 800; margin-bottom: 12px; color: var(--text-main); }
-        .hero-banner h1 span { color: var(--neon-teal); }
-        .hero-banner p { color: var(--text-muted); font-size: 15px; max-width: 650px; line-height: 1.6; margin-bottom: 24px; }
-        
-        .hero-badges { display: flex; gap: 15px; flex-wrap: wrap; }
-        .badge {
-            background: rgba(2, 6, 17, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--neon-aqua);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .section-header {
+        .profile-user-info { display: flex; align-items: center; gap: 24px; }
+        .avatar-circle {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--cyan), var(--violet));
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--void);
+            box-shadow: 0 0 25px rgba(69,232,212,0.4);
         }
-        .section-header h2 { font-size: 24px; font-weight: 700; }
 
-        /* EXACTLY 3 PRODUCTS PER ROW RESPONSIVE GRID */
-        .product-grid {
+        .user-details h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 26px; font-weight: 700; margin-bottom: 4px; color: var(--text-main);
+        }
+        .user-details p { color: var(--text-muted); font-size: 14px; margin-bottom: 10px; }
+        
+        .badge-school {
+            background: rgba(139, 127, 255, 0.1);
+            color: var(--violet);
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 600;
+            border: 1px solid rgba(139, 127, 255, 0.25);
+            display: inline-block;
+        }
+
+        .stats-boxes { display: flex; gap: 16px; flex-wrap: wrap; }
+        .stat-box {
+            background: rgba(5, 6, 8, 0.6);
+            border: 1px solid var(--panel-border);
+            padding: 16px 26px;
+            border-radius: 18px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .stat-box span { display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; letter-spacing: 1px; }
+        .stat-box h3 { font-family: 'Rajdhani', sans-serif; font-size: 24px; font-weight: 700; color: var(--cyan); }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 24px; font-weight: 700; margin-bottom: 22px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* ===== USER'S PRODUCTS GRID ===== */
+        .my-products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            gap: 26px;
+            margin-bottom: 80px;
         }
-
         @media (max-width: 1024px) {
-            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .my-products-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 640px) {
-            .product-grid { grid-template-columns: 1fr; }
-            .hero-banner { padding: 24px; }
-            .hero-banner h1 { font-size: 24px; }
+            .my-products-grid { grid-template-columns: 1fr; }
+            .profile-header-card { flex-direction: column; align-items: flex-start; }
         }
 
-        .product-card {
-            background: var(--jelly-core);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--jelly-border);
-            border-radius: 24px;
-            padding: 20px;
+        .product-mini-card {
+            background: var(--panel);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(2, 6, 17, 0.6);
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(45, 212, 191, 0.5);
-            box-shadow: 0 25px 50px rgba(2, 6, 17, 0.9), inset 0 0 20px rgba(45, 212, 191, 0.1);
-        }
-
-        .prod-img-box {
-            width: 100%;
-            height: 190px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #020611;
-            margin-bottom: 16px;
-            position: relative;
-        }
-        .prod-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .product-card:hover .prod-img-box img { transform: scale(1.08); }
-
-        .product-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        .product-card p {
-            color: var(--text-muted);
-            font-size: 13.5px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 16px;
-            margin-top: auto;
-        }
-
-        .price-tag { font-size: 16px; font-weight: 800; color: var(--neon-teal); }
-
-        .btn-buy {
-            background: linear-gradient(135deg, var(--neon-teal) 0%, var(--neon-aqua) 100%);
-            color: #020611;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
             transition: all 0.3s ease;
         }
-        .btn-buy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(45, 212, 191, 0.5);
-            filter: brightness(1.1);
+        .product-mini-card:hover {
+            border-color: rgba(69,232,212,0.4);
+            transform: translateY(-4px);
+        }
+        .product-mini-card img {
+            width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 14px; background: var(--void-2);
+        }
+        .product-mini-card h4 { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+        .product-mini-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+
+        .btn-delete {
+            background: rgba(251, 113, 133, 0.1);
+            color: var(--coral);
+            border: 1px solid rgba(251, 113, 133, 0.25);
+            padding: 10px;
+            border-radius: 12px;
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-delete:hover {
+            background: rgba(251, 113, 133, 0.25);
+            color: var(--text-main);
         }
 
-        .empty-state {
+        .empty-profile {
             grid-column: 1 / -1;
             text-align: center;
             padding: 60px 20px;
+            background: var(--panel);
+            border-radius: 20px;
+            border: 1px dashed var(--panel-border);
             color: var(--text-muted);
-            background: var(--jelly-core);
-            border-radius: 24px;
-            border: 1px dashed var(--jelly-border);
         }
+        .empty-profile i { font-size: 40px; color: var(--cyan); margin-bottom: 12px; display: block; }
+
+        footer {
+            position: relative; z-index: 10;
+            border-top: 1px solid var(--panel-border);
+            padding: 34px 5% 46px;
+            text-align: center;
+            color: var(--text-muted); font-size: 13px;
+        }
+        footer .fbolt { color: var(--cyan); }
     </style>
 </head>
-<body>
+<body onload="loadProfileData()">
 
-    <div class="ambient-blob blob-1"></div>
-    <div class="ambient-blob blob-2"></div>
+    <div id="stormSky"></div>
+    <div class="cloud-layer"></div>
+    <div class="skyline"></div>
 
     <nav>
-        <h2>Earn<span>Smart</span></h2>
+        <div class="logo"><i class="fa-solid fa-bolt bolt"></i><span>Silver Giggle</span></div>
         <div class="nav-links">
-            <a href="profile.html" class="nav-link-btn" style="background: rgba(167, 139, 250, 0.1); color: var(--neon-violet); border-color: rgba(167, 139, 250, 0.25);">
-                <i class="fa-solid fa-id-card-clip"></i> My Profile
-            </a>
-            <a href="upload.html" class="nav-link-btn">
-                <i class="fa-solid fa-plus-circle"></i> Upload Item
-            </a>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="upload.html"><i class="fa-solid fa-plus-circle"></i> Sell Your Work</a>
+            <a href="profile.html" class="active"><i class="fa-solid fa-id-card-clip"></i> My Profile</a>
+            <a href="#" onclick="handleLogout()" class="logout-btn"><i class="fa-solid fa-power-off"></i> Logout</a>
         </div>
     </nav>
 
     <div class="container">
-        <!-- School & College Relatable Hero Section -->
-        <div class="hero-banner">
-            <h1>Global Student & Campus Marketplace 🎓</h1>
-            <p>Showcase your decorated notebooks, custom assignments, aesthetic notes, and project crafts to students worldwide instantly. No login required to browse or buy—direct peer-to-peer connection!</p>
-            <div class="hero-badges">
-                <div class="badge"><i class="fa-solid fa-book-bookmark"></i> Decorated Notebooks</div>
-                <div class="badge"><i class="fa-solid fa-palette"></i> Aesthetic Crafting</div>
-                <div class="badge"><i class="fa-solid fa-earth-americas"></i> Worldwide Visibility</div>
+        <!-- Profile Account Info & Upload Count Header -->
+        <div class="profile-header-card">
+            <div class="profile-user-info">
+                <div class="avatar-circle" id="avatarInitial">U</div>
+                <div class="user-details">
+                    <h1 id="userNameDisplay">Student Name</h1>
+                    <p id="userEmailDisplay">student@campus.edu</p>
+                    <div class="badge-school" id="userSchoolTag"><i class="fa-solid fa-graduation-cap"></i> Campus Creator</div>
+                </div>
+            </div>
+            <div class="stats-boxes">
+                <div class="stat-box">
+                    <span>Total Uploads</span>
+                    <h3 id="totalUploadsCount">0</h3>
+                </div>
             </div>
         </div>
 
-        <div class="section-header">
-            <h2>Explore Student Creations</h2>
-            <a href="upload.html" class="nav-link-btn"><i class="fa-solid fa-bolt"></i> Sell Your Work</a>
-        </div>
-
-        <div class="product-grid" id="productContainer">
-            <!-- Dynamically injected products -->
+        <h2 class="section-title"><i class="fa-solid fa-box-archive" style="color: var(--cyan);"></i> My Campus Listings & Projects</h2>
+        <div class="my-products-grid" id="myProductsContainer">
+            <!-- User products loaded dynamically -->
         </div>
     </div>
 
-    <!-- Razorpay and Auth Support Scripts -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <footer>
+        <span class="fbolt"><i class="fa-solid fa-bolt"></i></span> Silver Giggle — built by students, for students.
+    </footer>
+
     <script src="auth.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            loadGlobalProducts();
-        });
+        function loadProfileData() {
+            const currentUserData = localStorage.getItem('currentUser');
+            if (!currentUserData) {
+                alert("Please log in first to access your profile!");
+                window.location.href = "login.html";
+                return;
+            }
 
-        function loadGlobalProducts() {
-            const products = JSON.parse(localStorage.getItem('products') || '[]');
-            const container = document.getElementById('productContainer');
-            container.innerHTML = '';
+            const currentUser = JSON.parse(currentUserData);
+            document.getElementById('userNameDisplay').innerText = currentUser.fullname || "Student Creator";
+            document.getElementById('userEmailDisplay').innerText = currentUser.email || "No email provided";
+            document.getElementById('avatarInitial').innerText = (currentUser.fullname || "S").charAt(0).toUpperCase();
             
+            if(currentUser.schoolNickname) {
+                document.getElementById('userSchoolTag').innerHTML = `<i class="fa-solid fa-school"></i> Campus / Nickname: ${currentUser.schoolNickname}`;
+            }
+
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const container = document.getElementById('myProductsContainer');
+            container.innerHTML = '';
+
+            document.getElementById('totalUploadsCount').innerText = products.length;
+
             if(products.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fa-solid fa-box-open" style="font-size: 42px; margin-bottom: 12px; color: var(--neon-teal);"></i>
-                        <p>No campus items listed yet. Be the first student worldwide to upload!</p>
+                    <div class="empty-profile">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>You haven't uploaded any decorated notebooks or notes yet!</p>
                     </div>`;
                 return;
             }
 
             products.forEach((prod) => {
                 container.innerHTML += `
-                    <div class="product-card">
+                    <div class="product-mini-card">
                         <div>
-                            ${prod.image ? `<div class="prod-img-box"><img src="${prod.image}" alt="Product"></div>` : ''}
-                            <h3>${prod.title}</h3>
+                            ${prod.image ? `<img src="${prod.image}" alt="${prod.title}">` : ''}
+                            <h4>${prod.title}</h4>
                             <p>${prod.description}</p>
                         </div>
-                        <div class="card-footer">
-                            <span class="price-tag">₹40 / $0.50</span>
-                            <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">pay to get contact</button>
-                        </div>
+                        <button class="btn-delete" onclick="deleteProduct(${prod.id})"><i class="fa-solid fa-trash"></i> Remove Item</button>
                     </div>
                 `;
             });
         }
 
-        function initiateBuy(sellerWhatsApp) {
-            var options = {
-                "key": "rzp_test_YOUR_KEY_HERE",
-                "amount": "4000", // in paisa (₹40)
-                "currency": "INR",
-                "name": "EarnSmart Campus",
-                "description": "Direct Peer-to-Peer Connection Fee",
-                "handler": function (response){
-                    alert("Payment Successful! Connecting securely to creator's WhatsApp...");
-                    window.location.href = `https://wa.me/${sellerWhatsApp}?text=Hi,%20I%20just%20paid%20on%20EarnSmart%20for%20your%20decorated%20notebook/project!`;
-                },
-                "theme": { "color": "#2DD4BF" }
-            };
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
+        function deleteProduct(productId) {
+            if(confirm("Are you sure you want to remove this project listing?")) {
+                let products = JSON.parse(localStorage.getItem('products') || '[]');
+                products = products.filter(p => p.id !== productId);
+                localStorage.setItem('products', JSON.stringify(products));
+                loadProfileData();
+            }
         }
     </script>
 </body>
