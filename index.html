@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnSmart - Join & Start Earning</title>
+    <title>Silver Giggle - Join & Start Earning</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-deep: #090D16;
-            --surface: #131D31;
-            --accent-glow: #6366F1;
+            --bg-deep: #050608;
+            --surface: #0E121C;
+            --accent-glow: #45E8D4;
+            --violet: #8B7FFF;
             --emerald: #10B981;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
+            --text-main: #F1F4F7;
+            --text-muted: #8A94A3;
             --border: rgba(255, 255, 255, 0.08);
+            --panel-border: rgba(200, 212, 220, 0.14);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -28,8 +30,8 @@
             justify-content: center;
             padding: 24px;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(69, 232, 212, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 127, 255, 0.1) 0%, transparent 40%);
         }
 
         .signup-container {
@@ -54,8 +56,17 @@
             font-weight: 800;
             color: var(--text-main);
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        .brand-logo span { color: var(--accent-glow); }
+        .brand-logo .bolt { color: var(--accent-glow); text-shadow: 0 0 18px rgba(69,232,212,0.7); }
+        .brand-logo span { 
+            background: linear-gradient(135deg, #FFFFFF, var(--text-muted));
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
 
         .tagline {
             text-align: center;
@@ -100,28 +111,28 @@
             font-size: 14px;
             color: var(--text-main);
             outline: none;
-            background: rgba(9, 13, 22, 0.5);
+            background: rgba(5, 6, 8, 0.5);
             transition: all 0.3s ease;
         }
 
         .input-wrapper input:focus {
             border-color: var(--accent-glow);
-            background: rgba(9, 13, 22, 0.8);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            background: rgba(5, 6, 8, 0.8);
+            box-shadow: 0 0 0 4px rgba(69, 232, 212, 0.15);
         }
         .input-wrapper input:focus + i { color: var(--accent-glow); }
 
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, var(--accent-glow) 0%, #4F46E5 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--violet) 100%);
+            color: #050608;
             border: none;
             border-radius: 12px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+            box-shadow: 0 8px 20px rgba(69, 232, 212, 0.25);
             transition: all 0.3s ease;
             margin-top: 10px;
             display: flex;
@@ -131,7 +142,7 @@
         }
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 12px 25px rgba(139, 127, 255, 0.35);
         }
 
         .form-footer {
@@ -151,8 +162,17 @@
 <body>
 
     <div class="signup-container">
-        <div class="brand-logo">Earn<span>Smart</span></div>
+        <div class="brand-logo"><i class="fa-solid fa-bolt bolt"></i> <span>Silver Giggle</span></div>
         <p class="tagline">Create an account & start your earning journey</p>
+
+        <!-- Added Search Bar to fulfill user requirement while maintaining form aesthetics -->
+        <div class="input-group" style="margin-bottom: 20px;">
+            <label for="searchInput">Search Marketplace</label>
+            <div class="input-wrapper">
+                <input type="text" id="searchInput" placeholder="Search items, notes or crafts..." onkeyup="filterEncryptedProducts()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
 
         <form onsubmit="handleSignup(event)">
             <div class="input-group">
@@ -206,5 +226,86 @@
     </div>
 
 <script src="auth.js"></script>
+<script>
+    // Global array cache for client-side search filtering
+    window._allDecryptedProducts = [];
+
+    async function loadEncryptedProducts() {
+        const container = document.getElementById('productContainer');
+        if (!container) return;
+
+        const secureRepo = JSON.parse(localStorage.getItem('silver_giggle_secure_repo') || '[]');
+        container.innerHTML = '';
+
+        if (secureRepo.length === 0) {
+            container.innerHTML = `
+              <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <i class="fa-solid fa-box-open" style="font-size: 35px; color: var(--cyan); margin-bottom: 10px;"></i>
+                <p>No encrypted items saved in browser storage yet.</p>
+              </div>`;
+            return;
+        }
+
+        window._allDecryptedProducts = [];
+
+        for (const encryptedPkg of secureRepo) {
+            try {
+                // Decrypt on the fly for viewing
+                const prod = await decryptData(encryptedPkg);
+                window._allDecryptedProducts.push(prod);
+            } catch (err) {
+                console.error('Decryption error for item:', err);
+            }
+        }
+
+        renderProductCards(window._allDecryptedProducts);
+    }
+
+    function renderProductCards(products) {
+        const container = document.getElementById('productContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (products.length === 0) {
+            container.innerHTML = `
+              <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 35px; color: var(--cyan); margin-bottom: 10px;"></i>
+                <p>No matching items found.</p>
+              </div>`;
+            return;
+        }
+
+        for (const prod of products) {
+            container.innerHTML += `
+              <div class="product-card" style="position: relative;">
+                <!-- Country Flag Badge in Corner -->
+                <div style="position: absolute; top: 15px; right: 15px; background: rgba(5,6,8,0.85); border: 1px solid var(--panel-border); padding: 4px 8px; border-radius: 8px; font-size: 13px; z-index: 5;" title="Origin: ${prod.countryName || 'Global'}">
+                    ${prod.countryFlag || '🌐'}
+                </div>
+                <div>
+                    ${prod.image ? `<div class="prod-img-box"><img src="${prod.image}" alt="${prod.title}"></div>` : ''}
+                    <h3>${prod.title}</h3>
+                    <p>${prod.description}</p>
+                </div>
+                <div class="card-footer">
+                    <span class="price-tag">₹40 / $0.50</span>
+                    <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">Pay to get contact</button>
+                </div>
+              </div>
+            `;
+        }
+    }
+
+    function filterEncryptedProducts() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = window._allDecryptedProducts.filter(prod => 
+            prod.title.toLowerCase().includes(query) || 
+            prod.description.toLowerCase().includes(query)
+        );
+        renderProductCards(filtered);
+    }
+
+    window.addEventListener('DOMContentLoaded', loadEncryptedProducts);
+</script>
 </body>
 </html>
