@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Silver Giggle — Campus Marketplace</title>
+<title>Silver Giggle — Digital Study Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -317,8 +317,18 @@
   }
   footer .fbolt{ color:var(--cyan); }
 </style>
+<script>
+  // Instant Session Guard (Checks browser storage)
+  (function () {
+      const activeUser = localStorage.getItem('silver_giggle_current_user');
+      if (!activeUser) {
+          if (!window.location.href.includes('login.html') && !window.location.href.includes('signup.html')) {
+              window.location.replace('login.html');
+          }
+      }
+  })();
+</script>
 </head>
-  <script>auth-guard.js</script>
 <body>
 
   <div id="stormSky"></div>
@@ -331,69 +341,98 @@
     <button class="nav-burger" id="navBurger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="upload.html"><i class="fa-solid fa-plus-circle"></i> Sell Your Work</a>
+      <a href="upload.html"><i class="fa-solid fa-plus-circle"></i> Submit Resource</a>
       <a href="profile.html"><i class="fa-solid fa-id-card-clip"></i> My Profile</a>
     </div>
   </nav>
 
   <div class="container">
     <section class="hero">
-      <span class="eyebrow"><i class="fa-solid fa-graduation-cap"></i> Global Student Marketplace</span>
-      <h1><span class="chrome-text">Where campus talent</span> <span class="strike-text">strikes.</span></h1>
-      <p>Decorated notebooks, custom assignments, aesthetic notes, and project crafts — showcased to students worldwide. No login required to browse or buy, just a direct peer-to-peer connection.</p>
+      <span class="eyebrow"><i class="fa-solid fa-graduation-cap"></i> Digital Study Library & Resources</span>
+      <h1><span class="chrome-text">Master your semester with</span> <span class="strike-text">curated notes.</span></h1>
+      <p>Access high-yield student notes, decorated study guides, and semester project drafts. Instant digital unlocking managed securely through our official educational repository.</p>
       <div class="hero-ctas">
-        <a href="upload.html" class="btn-primary"><i class="fa-solid fa-bolt"></i> Sell Your Work</a>
-        <a href="#marketplace" class="btn-ghost"><i class="fa-solid fa-store"></i> Browse Creations</a>
+        <a href="upload.html" class="btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> Submit Resource</a>
+        <a href="#marketplace" class="btn-ghost"><i class="fa-solid fa-download"></i> Browse Library</a>
       </div>
       <div class="hero-badges">
-        <div class="badge"><i class="fa-solid fa-book-bookmark"></i> Decorated Notebooks</div>
-        <div class="badge"><i class="fa-solid fa-palette"></i> Aesthetic Crafting</div>
-        <div class="badge"><i class="fa-solid fa-earth-americas"></i> Worldwide Visibility</div>
-        <div class="badge"><i class="fa-solid fa-lock"></i> Pay-to-Unlock Contact</div>
+        <div class="badge"><i class="fa-solid fa-file-pdf"></i> Verified Study Notes</div>
+        <div class="badge"><i class="fa-solid fa-palette"></i> Aesthetic Craft Guides</div>
+        <div class="badge"><i class="fa-solid fa-globe"></i> Global Access</div>
+        <div class="badge"><i class="fa-solid fa-shield-halved"></i> Secure Digital Delivery</div>
       </div>
     </section>
 
     <section class="steps">
       <div class="step">
-        <span class="num">01 — LIST</span>
-        <h3>Upload your creation</h3>
-        <p>Snap a photo of your notebook, notes, or craft and post it in minutes — no account, no waiting.</p>
+        <span class="num">01 — BROWSE</span>
+        <h3>Select your notes</h3>
+        <p>Explore our library of curated digital study guides, notes, and semester assignments.</p>
       </div>
       <div class="step">
-        <span class="num">02 — CONNECT</span>
-        <h3>Buyer pays the fee</h3>
-        <p>A small ₹40 / $0.50 fee unlocks a direct WhatsApp line between buyer and creator.</p>
+        <span class="num">02 — UNLOCK</span>
+        <h3>Secure processing</h3>
+        <p>Complete a quick checkout of ₹40 / $0.50 via our authorized payment gateway.</p>
       </div>
       <div class="step">
-        <span class="num">03 — DEAL DIRECT</span>
-        <h3>Settle it yourselves</h3>
-        <p>Chat, agree on price and delivery, and close the deal peer-to-peer — worldwide.</p>
+        <span class="num">03 — DOWNLOAD</span>
+        <h3>Instant digital access</h3>
+        <p>Receive immediate download links or direct repository asset files.</p>
       </div>
     </section>
 
     <section id="marketplace">
       <div class="section-header">
         <div>
-          <h2>Explore Student Creations</h2>
-          <p>Fresh uploads from students across campuses, updated as creators post.</p>
+          <h2>Explore Digital Library</h2>
+          <p>Fresh study notes and educational materials, updated as publications go live.</p>
         </div>
-        <a href="upload.html" class="btn-ghost"><i class="fa-solid fa-bolt"></i> Sell Your Work</a>
+        <a href="upload.html" class="btn-ghost"><i class="fa-solid fa-cloud-arrow-up"></i> Submit Resource</a>
       </div>
       <div class="product-grid" id="productContainer"></div>
     </section>
   </div>
-<script>
-  marker.js
-</script>
+
   <footer>
-    <span class="fbolt"><i class="fa-solid fa-bolt"></i></span> Silver Giggle — built by students, for students.
+    <span class="fbolt"><i class="fa-solid fa-bolt"></i></span> Silver Giggle — Digital Educational Content Library. All rights reserved.
   </footer>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="auth.js"></script>
   <script>
+    // Browser Crypto Decryption Setup for Client-Side Encrypted Storage
+    async function getOrCreateEncryptionKey() {
+        let rawKey = localStorage.getItem('sg_sec_key');
+        if (!rawKey) {
+            const key = window.crypto.subtle.generateKey(
+                { name: "AES-GCM", length: 256 },
+                true,
+                ["encrypt", "decrypt"]
+            );
+            const exported = await window.crypto.subtle.exportKey("jwk", await key);
+            localStorage.setItem('sg_sec_key', JSON.stringify(exported));
+            return await window.crypto.subtle.importKey("jwk", exported, "AES-GCM", true, ["encrypt", "decrypt"]);
+        } else {
+            return await window.crypto.subtle.importKey("jwk", JSON.parse(rawKey), "AES-GCM", true, ["encrypt", "decrypt"]);
+        }
+    }
+
+    async function decryptData(encryptedObj) {
+        const key = await getOrCreateEncryptionKey();
+        const iv = new Uint8Array(encryptedObj.iv);
+        const data = new Uint8Array(encryptedObj.data);
+
+        const decrypted = await window.crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            data
+        );
+
+        return JSON.parse(new TextDecoder().decode(decrypted));
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
-      loadGlobalProducts();
+      loadEncryptedProducts();
       startLightning();
     });
 
@@ -402,64 +441,64 @@
       document.getElementById('navLinks').classList.toggle('open');
     });
 
-    // Backend sync integration script for global products loading
-    async function loadGlobalProducts() {
-      let products = [];
-      try {
-        const response = await fetch(`${typeof BACKEND_URL !== 'undefined' ? BACKEND_URL : ''}/api/products`);
-        if (response.ok) {
-          products = await response.json();
-        } else {
-          products = JSON.parse(localStorage.getItem('products') || '[]');
+    // Load and decrypt items securely from browser storage
+    async function loadEncryptedProducts() {
+        const container = document.getElementById('productContainer');
+        if (!container) return;
+
+        const secureRepo = JSON.parse(localStorage.getItem('silver_giggle_secure_repo') || '[]');
+        container.innerHTML = '';
+
+        if (secureRepo.length === 0) {
+            container.innerHTML = `
+              <div class="empty-state">
+                <i class="fa-solid fa-box-open"></i>
+                <p>No encrypted items saved in browser storage yet.</p>
+              </div>`;
+            return;
         }
-      } catch (err) {
-        products = JSON.parse(localStorage.getItem('products') || '[]');
-      }
 
-      const container = document.getElementById('productContainer');
-      container.innerHTML = '';
+        for (const encryptedPkg of secureRepo) {
+            try {
+                const prod = await decryptData(encryptedPkg);
 
-      if (products.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i class="fa-solid fa-box-open"></i>
-            <p>No campus items listed yet. Be the first student worldwide to upload!</p>
-          </div>`;
-        return;
-      }
-
-      products.forEach((prod) => {
-        container.innerHTML += `
-          <div class="product-card">
-            <div>
-              ${prod.image ? `<div class="prod-img-box"><img src="${prod.image}" alt="${prod.title}"></div>` : ''}
-              <h3>${prod.title}</h3>
-              <p>${prod.description}</p>
-            </div>
-            <div class="card-footer">
-              <span class="price-tag">₹40 / $0.50</span>
-              <button class="btn-buy" onclick="initiateBuy('${prod.whatsapp}')">Pay to get contact</button>
-            </div>
-          </div>
-        `;
-      });
+                container.innerHTML += `
+                  <div class="product-card" style="position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; background: rgba(5,6,8,0.85); border: 1px solid var(--panel-border); padding: 4px 8px; border-radius: 8px; font-size: 13px; z-index: 5;" title="Origin: ${prod.countryName || 'Global'}">
+                        ${prod.countryFlag || '🌐'}
+                    </div>
+                    <div>
+                        ${prod.image ? `<div class="prod-img-box"><img src="${prod.image}" alt="${prod.title}"></div>` : ''}
+                        <h3>${prod.title}</h3>
+                        <p>${prod.description}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price-tag">₹40 / $0.50</span>
+                        <button class="btn-buy" onclick="initiateLibraryCheckout('${encodeURIComponent(prod.title)}')">Unlock Digital File</button>
+                    </div>
+                  </div>
+                `;
+            } catch (err) {
+                console.error('Decryption error for item:', err);
+            }
+        }
     }
 
-    function initiateBuy(sellerWhatsApp) {
-      var options = {
-        "key": "rzp_test_YOUR_KEY_HERE",
-        "amount": "4000",
-        "currency": "INR",
-        "name": "Silver Giggle",
-        "description": "Direct Peer-to-Peer Connection Fee",
-        "handler": function (response) {
-          alert("Payment Successful! Connecting securely to creator's WhatsApp...");
-          window.location.href = `https://wa.me/${sellerWhatsApp}?text=Hi,%20I%20just%20paid%20on%20Silver%20Giggle%20for%20your%20decorated%20notebook/project!`;
-        },
-        "theme": { "color": "#45E8D4" }
-      };
-      var rzp1 = new Razorpay(options);
-      rzp1.open();
+    function initiateLibraryCheckout(resourceTitle) {
+        var options = {
+            "key": "rzp_test_YOUR_KEY_HERE",
+            "amount": "4000",
+            "currency": "INR",
+            "name": "Silver Giggle Digital Library",
+            "description": "Access to " + decodeURIComponent(resourceTitle),
+            "handler": function (response) {
+                alert("Payment Successful! Unlocking your digital repository asset...");
+                window.location.href = `download-success.html?item=${resourceTitle}`;
+            },
+            "theme": { "color": "#45E8D4" }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
     }
 
     // Ambient lightning: random screen flash + streak bolt on the fixed canvas
@@ -497,7 +536,7 @@
 
       function strike() {
         flash.classList.remove('flash-hit');
-        void flash.offsetWidth; // restart animation
+        void flash.offsetWidth;
         flash.classList.add('flash-hit');
         drawBolt();
         const next = 9000 + Math.random() * 14000;
